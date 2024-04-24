@@ -14,6 +14,17 @@ class RegisterController extends GetxController {
   var registerFormKey = GlobalKey<FormState>();
 
   final count = 0.obs;
+  RxBool isPasswordVisible = false.obs;
+  RxBool isConfirmPasswordVisible = false.obs;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible.toggle();
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordVisible.toggle();
+  }
+
   @override
   void onInit() {
     // Called on controller initialization

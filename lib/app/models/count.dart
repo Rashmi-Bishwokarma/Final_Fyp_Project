@@ -1,18 +1,18 @@
 class TableCounts {
-  final int comments;
-  final int feedback;
-  final int journals;
-  final int journalTags;
-  final int likes;
-  final int notes;
-  final int notifications;
-  final int payments;
-  final int personalAccessToken;
-  final int plans;
-  final int subscriptions;
-  final int tags;
-  final int tasks;
-  final int users;
+  int comments,
+      feedback,
+      journals,
+      journalTags,
+      likes,
+      notes,
+      notifications,
+      payments,
+      personalAccessToken,
+      plans,
+      subscriptions,
+      tags,
+      tasks,
+      users;
 
   TableCounts({
     required this.comments,
@@ -33,20 +33,35 @@ class TableCounts {
 
   factory TableCounts.fromJson(Map<String, dynamic> json) {
     return TableCounts(
-      comments: int.parse(json['comments']),
-      feedback: int.parse(json['feedback']),
-      journals: int.parse(json['journals']),
-      journalTags: int.parse(json['journal_tags']),
-      likes: int.parse(json['likes']),
-      notes: int.parse(json['notes']),
-      notifications: int.parse(json['notifications']),
-      payments: int.parse(json['payments']),
-      personalAccessToken: int.parse(json['personal_access_token']),
-      plans: int.parse(json['plans']),
-      subscriptions: int.parse(json['subscriptions']),
-      tags: int.parse(json['tags']),
-      tasks: int.parse(json['tasks']),
-      users: int.parse(json['users']),
+      comments: int.tryParse(json['comments'].toString()) ?? 0,
+      feedback: int.tryParse(json['feedback'].toString()) ?? 0,
+      journals: int.tryParse(json['journals'].toString()) ?? 0,
+      journalTags: int.tryParse(json['journal_tags'].toString()) ?? 0,
+      likes: int.tryParse(json['likes'].toString()) ?? 0,
+      notes: int.tryParse(json['notes'].toString()) ?? 0,
+      notifications: int.tryParse(json['notifications'].toString()) ?? 0,
+      payments: int.tryParse(json['payments'].toString()) ?? 0,
+      personalAccessToken:
+          int.tryParse(json['personal_access_token'].toString()) ?? 0,
+      plans: int.tryParse(json['plans'].toString()) ?? 0,
+      subscriptions: int.tryParse(json['subscriptions'].toString()) ?? 0,
+      tags: int.tryParse(json['tags'].toString()) ?? 0,
+      tasks: int.tryParse(json['tasks'].toString()) ?? 0,
+      users: int.tryParse(json['users'].toString()) ?? 0,
+    );
+  }
+}
+
+class JournalCount {
+  String date;
+  int count;
+
+  JournalCount({required this.date, required this.count});
+
+  factory JournalCount.fromJson(Map<String, dynamic> json) {
+    return JournalCount(
+      date: json['date'],
+      count: int.tryParse(json['count'].toString()) ?? 0,
     );
   }
 }

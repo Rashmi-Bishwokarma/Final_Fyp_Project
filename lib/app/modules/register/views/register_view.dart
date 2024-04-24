@@ -128,86 +128,106 @@ class RegisterView extends GetView<RegisterController> {
                     SizedBox(
                       width: 334,
                       height: 64,
-                      child: TextFormField(
-                        controller: controller.passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xFFD9D9D9),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: 'PASSWORD',
-                          hintStyle: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            height: 0.08,
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock_outline_sharp,
-                            size: 30,
-                            color: Color.fromARGB(255, 96, 95, 95),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password is required';
-                          } else if (value.length < 8) {
-                            return 'Password must be at least 8 characters';
-                          } else if (!RegExp(
-                                  r'(?=.*?[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])')
-                              .hasMatch(value)) {
-                            return 'Password must contain at least one special character';
-                          }
-                          return null;
-                        },
-                      ),
+                      child: Obx(() => TextFormField(
+                            controller: controller.passwordController,
+                            obscureText: !controller.isPasswordVisible.value,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xFFD9D9D9),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: 'PASSWORD',
+                              hintStyle: GoogleFonts.montserrat(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                height: 0.08,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock_outline_sharp,
+                                size: 30,
+                                color: Color.fromARGB(255, 96, 95, 95),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: controller.togglePasswordVisibility,
+                                child: Icon(
+                                  controller.isPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Password is required';
+                              } else if (value.length < 8) {
+                                return 'Password must be at least 8 characters';
+                              } else if (!RegExp(
+                                      r'(?=.*?[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])')
+                                  .hasMatch(value)) {
+                                return 'Password must contain at least one special character';
+                              }
+                              return null;
+                            },
+                          )),
                     ),
-                    const SizedBox(
-                        height: 10), // Adjust the spacing between text fields
+
                     SizedBox(
                       width: 334,
                       height: 64,
-                      child: TextFormField(
-                        controller: controller.confirmPasswordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xFFD9D9D9),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: 'CONFIRM PASSWORD',
-                          hintStyle: GoogleFonts.montserrat(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w300,
-                            height: 0.08,
-                          ),
-                          prefixIcon: const Icon(
-                            Icons.lock_outline_sharp,
-                            size: 30,
-                            color: Color.fromARGB(255, 96, 95, 95),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Confirm Password is required';
-                          } else if (value !=
-                              controller.passwordController.text) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-                      ),
+                      child: Obx(() => TextFormField(
+                            controller: controller.confirmPasswordController,
+                            obscureText:
+                                !controller.isConfirmPasswordVisible.value,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xFFD9D9D9),
+                              contentPadding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                borderSide: BorderSide.none,
+                              ),
+                              hintText: 'CONFIRM PASSWORD',
+                              hintStyle: GoogleFonts.montserrat(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                                height: 0.08,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock_outline_sharp,
+                                size: 30,
+                                color: Color.fromARGB(255, 96, 95, 95),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap:
+                                    controller.toggleConfirmPasswordVisibility,
+                                child: Icon(
+                                  controller.isConfirmPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Confirm Password is required';
+                              } else if (value !=
+                                  controller.passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
+                          )),
                     ),
+
                     const SizedBox(
                         height: 10), // Adjust the spacing between text fields
 

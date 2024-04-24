@@ -49,7 +49,7 @@ class EditJournalView extends GetView<EditJournalController> {
                 },
               ),
             ],
-            title: const Text('Create Post'),
+            title: const Text('Edit Journal'),
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),

@@ -58,7 +58,7 @@ class Journal {
       likeCount: json['like_count'] != null
           ? int.parse(json['like_count'].toString())
           : 0,
-      isLiked: json['is_liked'] ?? false,
+      isLiked: json['is_liked'] == 1,
     );
   }
 }

@@ -25,6 +25,8 @@ abstract class Routes {
   static const USERLIST = _Paths.USERLIST;
   static const NOTIFY = _Paths.NOTIFY;
   static const ADMINPAYMENT = _Paths.ADMINPAYMENT;
+  static const PLANS = _Paths.PLANS;
+  static const ADMIN_PROFILE = _Paths.ADMIN_PROFILE;
 }
 
 abstract class _Paths {
@@ -51,4 +53,6 @@ abstract class _Paths {
   static const USERLIST = '/userlist';
   static const NOTIFY = '/notify';
   static const ADMINPAYMENT = '/adminpayment';
+  static const PLANS = '/plans';
+  static const ADMIN_PROFILE = '/admin-profile';
 }

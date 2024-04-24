@@ -6,6 +6,7 @@ import 'package:fyp_rememory/app/utils/constants.dart';
 import 'package:fyp_rememory/app/utils/memory.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -72,6 +73,11 @@ class JournalController extends GetxController {
 
     entryController.dispose();
     super.onClose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
   }
 
   Future<void> pickImage(ImageSource source) async {

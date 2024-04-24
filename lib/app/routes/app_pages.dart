@@ -4,6 +4,8 @@ import '../modules/WelcomePage/bindings/welcome_page_binding.dart';
 import '../modules/WelcomePage/views/welcome_page_view.dart';
 import '../modules/admin/bindings/admin_binding.dart';
 import '../modules/admin/views/admin_view.dart';
+import '../modules/adminProfile/bindings/admin_profile_binding.dart';
+import '../modules/adminProfile/views/admin_profile_view.dart';
 import '../modules/adminpayment/bindings/adminpayment_binding.dart';
 import '../modules/adminpayment/views/adminpayment_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -24,6 +26,8 @@ import '../modules/notify/bindings/notify_binding.dart';
 import '../modules/notify/views/notify_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
+import '../modules/plans/bindings/plans_binding.dart';
+import '../modules/plans/views/plans_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -141,7 +145,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DASHBOARD,
-      page: () => const DashboardView(),
+      page: () => DashboardView(),
       binding: DashboardBinding(),
     ),
     GetPage(
@@ -163,6 +167,16 @@ class AppPages {
       name: _Paths.ADMINPAYMENT,
       page: () => const AdminpaymentView(),
       binding: AdminpaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANS,
+      page: () => const PlansView(),
+      binding: PlansBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN_PROFILE,
+      page: () => AdminProfileView(),
+      binding: AdminProfileBinding(),
     ),
   ];
 }

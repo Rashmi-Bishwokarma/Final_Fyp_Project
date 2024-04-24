@@ -1,10 +1,10 @@
 // Define a class for a single plan
 class Plan {
   final String planId;
-  final String name;
-  final String price;
+  late final String name;
+  late final String price;
   final String duration;
-  final String features;
+  late final String features;
   final String isActive;
 
   Plan({

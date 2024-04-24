@@ -5,6 +5,7 @@ import 'package:fyp_rememory/app/utils/constants.dart';
 import 'package:fyp_rememory/app/utils/memory.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 // Your UserProfile model class
 
 class ProfileController extends GetxController {
@@ -14,6 +15,24 @@ class ProfileController extends GetxController {
   void onInit() {
     super.onInit();
     fetchUserProfile();
+  }
+
+  Future<void> pickProfileImage() async {
+    final ImagePicker _picker = ImagePicker();
+    // Pick an image
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      File profileImageFile = File(image.path);
+      // Now call updateUserProfile to upload the image
+      await updateUserProfile(
+        fullName: userResponse.value?.user?.fullName ?? '',
+        email: userResponse.value?.user?.email ?? '',
+        dateOfBirth: userResponse.value?.user?.dateOfBirth,
+        address: userResponse.value?.user?.address,
+        description: userResponse.value?.user?.description,
+        profileImage: profileImageFile, // Pass the new image file here
+      );
+    }
   }
 
   Future<void> updateUserProfile({

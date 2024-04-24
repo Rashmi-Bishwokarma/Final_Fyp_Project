@@ -52,6 +52,10 @@ class EditJournalController extends GetxController {
 
     if (pickedFile != null) {
       selectedImage.value = File(pickedFile.path);
+      print(
+          'Image picked: ${selectedImage.value?.path}'); // Debugging: Check the selected image path.
+    } else {
+      print('No image was selected.'); // Debugging: No image was picked.
     }
   }
 
@@ -104,6 +108,8 @@ class EditJournalController extends GetxController {
         ..fields['privacy'] = privacy.value;
 
       if (selectedImage.value != null) {
+        print(
+            'Image being sent: ${selectedImage.value?.path}'); // Debugging: Confirm the image file being sent.
         String fileName = selectedImage.value!.path.split('/').last;
         request.files.add(http.MultipartFile(
           'featured_image',
@@ -112,35 +118,35 @@ class EditJournalController extends GetxController {
           filename: fileName,
           contentType: MediaType('image', fileName.split('.').last),
         ));
-      }
 
-      try {
-        var streamedResponse = await request.send();
-        var response = await http.Response.fromStream(streamedResponse);
-        if (kDebugMode) {
-          print('Response status: ${response.statusCode}');
-        }
-        if (kDebugMode) {
-          print('Response body: ${response.body}');
-        }
-
-        if (response.statusCode == 200) {
-          json.decode(response.body);
-          // Handle the response data if needed
-        } else {
+        try {
+          var streamedResponse = await request.send();
+          var response = await http.Response.fromStream(streamedResponse);
           if (kDebugMode) {
-            print(
-                'The server responded with status code: ${response.statusCode}');
+            print('Response status: ${response.statusCode}');
           }
+          if (kDebugMode) {
+            print('Response body: ${response.body}');
+          }
+
+          if (response.statusCode == 200) {
+            json.decode(response.body);
+            // Handle the response data if needed
+          } else {
+            if (kDebugMode) {
+              print(
+                  'The server responded with status code: ${response.statusCode}');
+            }
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print("Journal ID: $journalId");
+          }
+          if (kDebugMode) {
+            print('Exception caught: $e');
+          }
+          Get.snackbar('Error', 'An error occurred while updating.');
         }
-      } catch (e) {
-        if (kDebugMode) {
-          print("Journal ID: $journalId");
-        }
-        if (kDebugMode) {
-          print('Exception caught: $e');
-        }
-        Get.snackbar('Error', 'An error occurred while updating.');
       }
     }
   }

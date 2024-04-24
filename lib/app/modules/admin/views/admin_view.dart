@@ -1,12 +1,16 @@
 import 'package:fyp_rememory/app/modules/admin/controllers/admin_controller.dart';
 
 import 'package:flutter/material.dart';
+import 'package:fyp_rememory/app/modules/adminProfile/views/admin_profile_view.dart';
 import 'package:fyp_rememory/app/modules/adminpayment/views/adminpayment_view.dart';
 import 'package:fyp_rememory/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:fyp_rememory/app/modules/feedback/views/feedback_view.dart';
-import 'package:fyp_rememory/app/modules/notify/views/notify_view.dart';
-import 'package:fyp_rememory/app/modules/profile/views/profile_view.dart';
+
+import 'package:fyp_rememory/app/modules/plans/views/plans_view.dart';
+
 import 'package:fyp_rememory/app/modules/userlist/views/userlist_view.dart';
+import 'package:fyp_rememory/app/routes/app_pages.dart';
+import 'package:fyp_rememory/app/utils/memory.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,35 +133,18 @@ class AdminView extends GetView<AdminController> {
                         color: Color.fromARGB(255, 71, 58, 121),
                       ), // Icon for Notifications
                       title: Text(
-                        'Notifications',
+                        'Plans',
                         style: GoogleFonts.montserrat(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       onTap: () {
-                        controller.changePage(NotifyView());
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(
-                        Icons.settings_outlined,
-                        color: Color.fromARGB(255, 71, 58, 121),
-                      ), // Icon for Settings
-                      title: Text(
-                        'Settings',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      onTap: () {
-                        // Assuming you have a SettingsPage widget
-                        controller.changePage(SettingsView());
+                        controller.changePage(PlansView());
                       },
                     ),
                     const SizedBox(
-                      height: 150,
+                      height: 130,
                     ),
                     ListTile(
                       leading: const Icon(
@@ -172,8 +159,64 @@ class AdminView extends GetView<AdminController> {
                         ),
                       ),
                       onTap: () {
-                        controller.changePage(ProfileView());
+                        controller.changePage(AdminProfileView());
                       },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                content: const Text(
+                                    'Are you sure you want to logout?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Memory.clear();
+                                      Get.offAllNamed(Routes.WELCOME_PAGE);
+                                    },
+                                    child: const Text('Logout'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: const Text('Cancel'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: <Widget>[
+                            const Icon(
+                              Icons.logout_outlined,
+                              color: Colors.red,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Text(
+                                'Log out',
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.red,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

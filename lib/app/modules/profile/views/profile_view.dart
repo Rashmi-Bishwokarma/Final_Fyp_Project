@@ -49,7 +49,17 @@ class ProfileView extends GetView<ProfileController> {
         ),
         actions: [
           Obx(() => IconButton(
-                icon: Icon(isInEditMode.value ? Icons.check : Icons.edit),
+                icon: Theme(
+                  // Wrap your Icon widget in a Theme
+                  data: Theme.of(context).copyWith(
+                    iconTheme: IconThemeData(
+                      color: Colors.blue, // Here's where you set the color
+                    ),
+                  ),
+                  child: Icon(
+                    isInEditMode.value ? Icons.check : Icons.edit,
+                  ),
+                ),
                 onPressed: () {
                   if (isInEditMode.value) {
                     // If in edit mode, validate all form fields
@@ -86,22 +96,30 @@ class ProfileView extends GetView<ProfileController> {
           key: formKey,
           child: ListView(
             children: [
-              Container(
-                width: 150, // Width of the circle
-                height: 150, // Height of the circle
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: user.profileImage != null
-                      ? DecorationImage(
-                          image: NetworkImage(profileImageUrl),
-                          fit: BoxFit
-                              .contain, // This will cover the circular area, might crop
-                        )
+              GestureDetector(
+                onTap: () {
+                  if (isInEditMode.value) {
+                    // Allow user to pick an image when in edit mode
+                    controller.pickProfileImage();
+                  }
+                },
+                child: Container(
+                  width: 150, // Width of the circle
+                  height: 150, // Height of the circle
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: user.profileImage != null
+                        ? DecorationImage(
+                            image: NetworkImage(profileImageUrl),
+                            fit: BoxFit
+                                .contain, // This will cover the circular area, might crop
+                          )
+                        : null,
+                  ),
+                  child: user.profileImage == null
+                      ? const Icon(Icons.person, size: 50)
                       : null,
                 ),
-                child: user.profileImage == null
-                    ? const Icon(Icons.person, size: 50)
-                    : null,
               ),
               const SizedBox(
                 height: 10,
@@ -164,29 +182,14 @@ class ProfileView extends GetView<ProfileController> {
               ListTile(
                 leading: const HeroIcon(HeroIcons.envelope,
                     color: Color.fromARGB(255, 71, 58, 121)),
-                title: isInEditMode.value
-                    ? TextFormField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          hintText: "Email",
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email is required';
-                          } else if (!GetUtils.isEmail(value)) {
-                            return 'Invalid email format';
-                          }
-                          return null;
-                        },
-                      )
-                    : Text(
-                        user.email ?? 'Not provided',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                title: Text(
+                  user.email ?? 'Not provided',
+                  style: GoogleFonts.montserrat(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 17, right: 17),

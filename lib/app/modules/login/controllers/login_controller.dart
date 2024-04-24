@@ -11,13 +11,14 @@ class LoginController extends GetxController {
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   var identifierController = TextEditingController(); // Updated controller name
   var passwordController = TextEditingController();
-  var isPasswordVisible = true.obs;
-  void increment() {
-    count.value++;
-  }
+  final RxBool isPasswordVisible = false.obs; // Tracks if password is visible
 
   void togglePasswordVisibility() {
-    isPasswordVisible.toggle(); // Toggles the value of the observable
+    isPasswordVisible.toggle(); // Toggle the visibility state
+  }
+
+  void increment() {
+    count.value++;
   }
 
   void onLogin() async {

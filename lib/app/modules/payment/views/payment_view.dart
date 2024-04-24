@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../models/plan.dart';
-import '../controllers/payment_controller.dart'; // Adjust the import path to match your project structure
+import '../controllers/payment_controller.dart';
+// Adjust the import path to match your project structure
 // Adjust the import path for your Plan model
 
-class PaymentView extends StatelessWidget {
+class PaymentView extends GetView<PaymentController> {
   // Assuming your PaymentController is correctly set up as before
-  final PaymentController controller = Get.find<PaymentController>();
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => PaymentController());
     return Scaffold(
-      appBar: AppBar(title: Text('Subscription Plans')),
+      appBar: AppBar(
+          title: Text(
+        'Subscription Plans',
+        style: GoogleFonts.montserrat(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      )),
       body: Obx(() {
         if (controller.isLoading.isTrue) {
           return Center(child: CircularProgressIndicator());
@@ -45,18 +55,47 @@ class PaymentView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(plan.name,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
                       Text(
-                          '${plan.price} USD - Duration: ${plan.duration} days'),
+                        plan.name,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        ' Rs ${plan.price}  - Duration: ${plan.duration} days',
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () =>
-                            controller.initiatePayment(plan.planId),
-                        child: Text('Subscribe'),
+                            controller.makeSubscriptionPayment(plan),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              'assets/icon/KhaltiLogo-removebg-preview.png', // Update this path to where your asset is located
+                              width: 80,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              'Pay with Khalti',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFF473A79),
+                              ),
+                            )
+                          ],
+                        ),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
+                            backgroundColor:
+                                const Color.fromARGB(255, 203, 195, 195)),
                       ),
                     ],
                   ),
@@ -65,9 +104,12 @@ class PaymentView extends StatelessWidget {
             },
           );
         } else {
-          return Center(child: Text('No subscription plans available.'));
+          return const Center(child: Text('No subscription plans available.'));
         }
       }),
     );
   }
 }
+
+const khaltiLogo =
+    "https://play-lh.googleusercontent.com/Xh_OlrdkF1UnGCnMN__4z-yXffBAEl0eUDeVDPr4UthOERV4Fll9S-TozSfnlXDFzw";

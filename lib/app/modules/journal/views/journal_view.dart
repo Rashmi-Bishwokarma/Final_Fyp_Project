@@ -27,16 +27,27 @@ class JournalView extends GetView<JournalController> {
             backgroundColor: const Color.fromARGB(255, 240, 239, 239),
             elevation: 2,
             actions: [
-              IconButton(
-                icon: const Icon(Icons.check),
-                onPressed: () {
-                  if (controller.journalFormKey.currentState!.validate()) {
-                    controller.submitJournalEntry();
-                  }
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor:
+                        Theme.of(context).primaryColor, // Text color
+                  ),
+                  onPressed: () {
+                    if (controller.journalFormKey.currentState!.validate()) {
+                      controller.submitJournalEntry();
+                    }
+                  },
+                  child: const Text(
+                    'Done',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ),
             ],
-            title: const Text('Create Post'),
+            title: const Text('Create Journal'),
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),

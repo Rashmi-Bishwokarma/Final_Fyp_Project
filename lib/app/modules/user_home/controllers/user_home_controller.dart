@@ -70,20 +70,20 @@ class UserHomeController extends GetxController {
           Get.snackbar(
             'Success',
             'Note added successfully!',
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
           );
         } else {
           Get.snackbar(
             'Error',
             responseData['message'] ?? 'Failed to add note.',
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
           );
         }
       } catch (e) {
         Get.snackbar(
           'Error',
           'An error occurred while submitting: $e',
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
         );
       }
     }

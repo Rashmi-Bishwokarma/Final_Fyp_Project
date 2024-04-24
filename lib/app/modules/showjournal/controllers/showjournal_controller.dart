@@ -26,10 +26,21 @@ class ShowJournalController extends GetxController {
 
   // This method filters the journal entries based on the search query.
   void filterJournalEntries(String query) {
+    query = query.trim().toLowerCase(); // Trim and convert to lower case
     var filteredEntries = journalEntries.where((entry) {
-      // Add more conditions if you want to search in other fields like `tags`.
-      return entry.title!.toLowerCase().contains(query) ||
-          entry.entry!.toLowerCase().contains(query);
+      // Debug output
+      if (kDebugMode) {
+        print('Filtering for query: $query');
+        print('Current title: "${entry.title}", Entry: "${entry.entry}"');
+      }
+
+      // Enhanced comparison logic
+      bool titleMatch =
+          entry.title != null && entry.title!.toLowerCase().contains(query);
+      bool entryMatch =
+          entry.entry != null && entry.entry!.toLowerCase().contains(query);
+
+      return titleMatch || entryMatch;
     }).toList();
 
     journalEntries.assignAll(filteredEntries); // Update the list of entries

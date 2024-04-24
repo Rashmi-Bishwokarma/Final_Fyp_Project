@@ -31,11 +31,11 @@ class UserHomeView extends GetView<UserHomeController> {
         actions: [
           IconButton(
             icon: const Icon(
-              Icons.notifications_on_outlined,
+              Icons.add_circle,
               size: 30,
             ),
             onPressed: () {
-              // Handle settings action
+              Get.to(() => JournalView());
             },
           ),
         ],
@@ -274,131 +274,4 @@ class UserHomeView extends GetView<UserHomeController> {
       bottomNavigationBar: const CustomBottomNavigationBar(currentIndex: 0),
     );
   }
-}
-
-void showOptions(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Row(
-              children: [
-                const HeroIcon(
-                  HeroIcons.documentArrowDown,
-                  style: HeroIconStyle.outline,
-                  size: 24,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Convert to journal',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              // Navigate to the welcome page
-              Get.to(() => const JournalView());
-            },
-          ),
-          ListTile(
-            title: Row(
-              children: [
-                const HeroIcon(
-                  HeroIcons.trash,
-                  style: HeroIconStyle.outline,
-                  size: 24,
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  'Clear note',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              // Clear the note when the option is tapped
-              TextEditingController noteController = TextEditingController();
-              noteController.clear(); // Use the existing instance 'controller'
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-void showOptionsJournal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            title: Row(
-              children: [
-                const Icon(
-                  Icons.chevron_right_rounded,
-                  size: 24.0,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Go to Journals',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              // Do something for option 1
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: Row(
-              children: [
-                const HeroIcon(
-                  HeroIcons.documentPlus,
-                  style: HeroIconStyle
-                      .outline, // Outlined icons are used by default.
-
-                  size: 24,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Create new journals',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              // Do something for option 2
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

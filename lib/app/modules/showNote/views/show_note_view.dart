@@ -55,9 +55,9 @@ class ShowNoteView extends GetView<ShowNoteController> {
                           context: context,
                           builder: (BuildContext dialogContext) {
                             return AlertDialog(
-                              title: const Text('Delete Journal Entry'),
+                              title: const Text('Delete your notes'),
                               content: const Text(
-                                'Are you sure you want to delete this journal entry? This action cannot be undone.',
+                                'Are you sure you want to delete this note? This action cannot be undone.',
                               ),
                               actions: <Widget>[
                                 TextButton(

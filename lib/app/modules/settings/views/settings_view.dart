@@ -155,7 +155,6 @@ class SettingsView extends StatelessWidget {
     // Contact section widget code
   }
 
-  // Function to show change password dialog
   void _showChangePasswordDialog(BuildContext context) {
     Get.defaultDialog(
       title: 'Change Password',
@@ -163,20 +162,50 @@ class SettingsView extends StatelessWidget {
         key: settingsController.changePasswordFormKey,
         child: Column(
           children: [
-            TextFormField(
-              controller: settingsController.oldPasswordController,
-              decoration: const InputDecoration(labelText: 'Old Password'),
-              obscureText: true,
-              validator: (value) =>
-                  value!.isEmpty ? 'Please enter old password' : null,
-            ),
-            TextFormField(
-              controller: settingsController.newPasswordController,
-              decoration: const InputDecoration(labelText: 'New Password'),
-              obscureText: true,
-              validator: (value) =>
-                  value!.isEmpty ? 'Please enter new password' : null,
-            ),
+            Obx(() => TextFormField(
+                  controller: settingsController.oldPasswordController,
+                  decoration: InputDecoration(
+                    labelText: 'Old Password',
+                    labelStyle: GoogleFonts.montserrat(
+                      fontSize: 16,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        settingsController.oldPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        settingsController.oldPasswordVisible.toggle();
+                      },
+                    ),
+                  ),
+                  obscureText: !settingsController.oldPasswordVisible.value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Please enter old password' : null,
+                )),
+            Obx(() => TextFormField(
+                  controller: settingsController.newPasswordController,
+                  decoration: InputDecoration(
+                    labelText: 'New Password',
+                    labelStyle: GoogleFonts.montserrat(
+                      fontSize: 16,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        settingsController.newPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        settingsController.newPasswordVisible.toggle();
+                      },
+                    ),
+                  ),
+                  obscureText: !settingsController.newPasswordVisible.value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Please enter new password' : null,
+                )),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -222,7 +251,9 @@ class SettingsView extends StatelessWidget {
             ),
             TextFormField(
               controller: settingsController.feedbackController,
-              decoration: const InputDecoration(labelText: 'Your Feedback'),
+              decoration: const InputDecoration(
+                labelText: 'Your Feedback',
+              ),
               validator: (value) =>
                   value!.isEmpty ? 'Please enter your feedback' : null,
             ),
